@@ -187,7 +187,7 @@ function App() {
   return (
     <>
     <div className='row headerRow'>
-      <h1>Etrian Odyssey {nexus ? "Nexus" : "V"} Weapon Damage Comparison</h1>
+      <h1>Etrian Odyssey V/Nexus Weapon Damage Comparison</h1>
       <h5><i>For deciding when to upgrade your weapon.</i></h5>
       <p>Check out the <a href="https://github.com/aturfah/eo5x-weapon-dmg/blob/master/README.md">project README</a> for more information</p>
     </div>
