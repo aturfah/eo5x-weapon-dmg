@@ -4,6 +4,8 @@ import './App.css'
 
 function damage(atk: number, eDef: number) {
   const cs = eDef / atk;
+  console.log(atk)
+  console.log(eDef)
   let innerVal = 0;
   if (cs > 1) {
     console.log(cs > 1)
@@ -97,8 +99,8 @@ function getEDef(eName: string, strDmg: boolean) {
 }
 
 function App() {
-  const [atkOrig, setWAtkO] = useState(10)
-  const [atkNew, setWAtkN] = useState(16)
+  const [atkOrig, setWAtkO] = useState(30)
+  const [atkNew, setWAtkN] = useState(36)
   const [eName, setEName] = useState('debug')
   const [strDmg, setStrDmg] = useState(true)
   const [dmgRat, setDmgRat] = useState(damageRat(atkNew, atkOrig, eName, strDmg))
@@ -112,7 +114,15 @@ function App() {
         <ul>
           <li>Original ATK Value: <input type="text" value={atkOrig} onChange={(val) => setWAtkO(Number(val.target.value))}/></li>
           <li>New ATK Value: <input type="text" value={atkNew} onChange={(val) => setWAtkN(Number(val.target.value))}/></li>
-          <li>Damage Type: {strDmg ? "STR-based" : "INT-based"} <input type="radio" /> </li>
+          <li>Damage Type: {strDmg ? "STR-based" : "INT-based"}</li>
+          <div className="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+            <input type="checkbox" className="btn-check" checked={strDmg} id="btncheck1" onChange={() => setStrDmg(true)} />
+            <label className="btn btn-outline-primary" for="btncheck1">STR-based</label>
+
+            <input type="checkbox" className="btn-check" checked={!strDmg} id="btncheck3" onChange={() => setStrDmg(false)} />
+            <label className="btn btn-outline-primary" for="btncheck3">Int-based</label>
+          </div>
+
           <li>Enemy ID: {eName}</li>
           <li>Enemy {strDmg ? "DEF" : "MDF"}: {getEDef(eName, strDmg)}</li>
         </ul>
