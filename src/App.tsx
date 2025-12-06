@@ -3,21 +3,29 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 
 function damage(atk: number, eDef: number) {
+  // Taken from: https://pastebin.com/jFnMqDET
+  eDef = 2 * eDef; // Monsters use 2x Defense as base defense
   const cs = eDef / atk;
   let innerVal = 0;
   if (cs > 1) {
-    console.log(cs > 1)
+    // console.log("cs > 1")
     innerVal = 1 - 0.7 * Math.pow(cs, 1/4)
   } else {
-    console.log("cs < 1")
+    // console.log("cs < 1")
     innerVal = 0.3 + 1.7 * Math.pow(1 - cs, 3)
   }
-  return 0.717 * innerVal * atk * 3 - eDef/5
+  let finalVal = 0.717 * innerVal * atk * 3 - eDef/5
+  if (finalVal < 0) finalVal = 0;
+  console.log("Player ATK", atk)
+  console.log("CS", cs)
+  console.log("Stat Value", innerVal)
+  console.log("Final Value", finalVal)
+  return finalVal
 }
 
 function damageRat(atkN: number, atkO: number, eName: string, strDmg: boolean) {
   const eDef = getEDef(eName, strDmg)
-  let val = damage(atkN, eDef) / damage(atkO, eDef)
+  const val = damage(atkN, eDef) / damage(atkO, eDef)
   return Math.round(val * 100) / 100
 }
 
@@ -97,39 +105,77 @@ function getEDef(eName: string, strDmg: boolean) {
 }
 
 function App() {
-  const [atkOrig, setWAtkO] = useState(30)
-  const [atkNew, setWAtkN] = useState(36)
+  const [atkOrig, setWAtkO] = useState(34)
+  const [atkNew, setWAtkN] = useState(38)
   const [eName, setEName] = useState('debug')
   const [strDmg, setStrDmg] = useState(true)
   const dmgRat = damageRat(atkNew, atkOrig, eName, strDmg)
 
   return (
     <>
+    <div className='row headerRow'>
+      <h1>Etrian Odyssey Nexus Weapon Damage Comparison</h1>
+      <h5><i>For deciding when to upgrade your weapon.</i></h5>
+      <p>Check out the <a href="https://github.com/aturfah/eo5x-weapon-dmg/blob/master/README.md">project README</a> for more information</p>
+    </div>
     <div className='row'>
-      <h1>Etrian Odyssey V/Nexus Weapon Damage Calculator</h1>
       <div className='col-sm-2'></div>
       <div className='col-sm-4'>
         <ul>
-          <li>Original ATK Value: <input type="text" value={atkOrig} onChange={(val) => setWAtkO(Number(val.target.value))}/></li>
-          <li>New ATK Value: <input type="text" value={atkNew} onChange={(val) => setWAtkN(Number(val.target.value))}/></li>
+          <li>Original ATK Value: <input type="text" value={atkOrig} size={4} onChange={(val) => setWAtkO(Number(val.target.value))}/></li>
+          <li>New ATK Value: <input type="text" value={atkNew} size={4} onChange={(val) => setWAtkN(Number(val.target.value))}/></li>
           <li>Damage Type: {strDmg ? "STR-based" : "INT-based"}</li>
           <div className="btn-group" role="group" aria-label="Basic checkbox toggle button group">
             <input type="checkbox" className="btn-check" checked={strDmg} id="btncheck1" onChange={() => setStrDmg(true)} />
-            <label className="btn btn-outline-primary" for="btncheck1">STR-based</label>
+            <label className="btn btn-outline-primary" htmlFor="btncheck1">STR-based</label>
 
             <input type="checkbox" className="btn-check" checked={!strDmg} id="btncheck3" onChange={() => setStrDmg(false)} />
-            <label className="btn btn-outline-primary" for="btncheck3">Int-based</label>
+            <label className="btn btn-outline-primary" htmlFor="btncheck3">Int-based</label>
           </div>
         </ul>
       </div>
       <div className='col-sm-4'>
         <ul>
-          <li>Enemy ID: {eName}</li>
+          <li>Enemy ID:&nbsp;
+            <select name="pets" value={eName} onChange={(val) => setEName(val.target.value)} id="pet-select">
+              <option value="debug">Rabid Koala</option>
+              <option value="blossombeast">Blossombeast</option>
+              <option value="berserkerking">Berserker King</option>
+              <option value="cernunnos">Cernunnos</option>
+              <option value="wyvern">Wyvern</option>
+              <option value="wickedsilirus">Wicked Silirus</option>
+              <option value="shellbeast">Shellbeast</option>
+              <option value="harpuia">Harpuia</option>
+              <option value="chimaera">Chimaera</option>
+              <option value="ketos">Ketos</option>
+              <option value="bugbeast">Bugbeast</option>
+              <option value="salamander">Salamander</option>
+              <option value="boilinglizard">Boiling Lizard</option>
+              <option value="basilisk">Basilisk</option>
+              <option value="iwaoropenelep">Iwaoropenelep</option>
+              <option value="blot">Blot</option>
+              <option value="jormungandr_weak">Jormungandr (Main Story)</option>
+              <option value="golem">Golem</option>
+              <option value="fenrir">Fenrir</option>
+              <option value="chameleonking">Chameleon King</option>
+              <option value="alraune">Alraune</option>
+              <option value="hippogryph">Hippogryph</option>
+              <option value="queenant">Queen Ant</option>
+              <option value="lamia">Lamia</option>
+              <option value="scylla">Scylla</option>
+              <option value="juggernaut">Juggernaut</option>
+              <option value="stormemperor">Storm Emperor</option>
+              <option value="greatdragon">Great Dragon</option>
+              <option value="blizzardking">Blizzard King</option>
+              <option value="abyssalprincess">Abyssal Princess</option>
+              <option value="jormungandr_full">Jormungandr (Postgame)</option>
+            </select>
+          </li>
           <li>Enemy {strDmg ? "DEF" : "MDF"}: {getEDef(eName, strDmg)}</li>
         </ul>
       </div>
       <div className='row'>
-        <h4>New weapon does {dmgRat}x damage</h4>
+        <h4>{isNaN(dmgRat) || !isFinite(dmgRat) ? "One of these results in 0 damage so..." : "New weapon does ~" + dmgRat + "x damage"}</h4>
       </div>
     </div>
     </>
