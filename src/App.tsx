@@ -19,8 +19,13 @@ function damage(atk: number, eDef: number) {
 
 function damageRat(atkN: number, atkO: number, eName: string, strDmg: boolean, nexus: boolean) {
   const eDef = getEDef(eName, strDmg, nexus)
-  const val = damage(atkN, eDef) / damage(atkO, eDef)
-  return Math.round(val * 100) / 100
+  const valN = damage(atkN, eDef)
+  const valO = damage(atkO, eDef)
+  return {
+    dmgN: valN,
+    dmgO: valO,
+    rat: Math.round(valN * 100 / valO) / 100
+  }
 }
 
 function getEDef(eName: string, strDmg: boolean, nexus: boolean) {
@@ -233,7 +238,12 @@ function App() {
         </ul>
       </div>
       <div className='row'>
-        <h4>{isNaN(dmgRat) || !isFinite(dmgRat) ? "One of these results in 0 damage so..." : "New weapon does ~" + dmgRat + "x damage"}</h4>
+        <h4>
+          {isNaN(dmgRat.rat) || !isFinite(dmgRat.rat) ? "One of these results in 0 damage so..." : "New weapon does ~" + dmgRat.rat + "x damage"}
+          <br/>
+          <sub>New Basic Attack Damage: {Math.round(dmgRat.dmgN * 0.98)}-{Math.round(dmgRat.dmgN * 1.02+4)}</sub> <br/>
+          <sub>Old Basic Attack Damage: {Math.round(dmgRat.dmgO * 0.98)}-{Math.round(dmgRat.dmgO * 1.02+4)}</sub>
+        </h4>
       </div>
     </div>
     </>
