@@ -4,8 +4,6 @@ import './App.css'
 
 function damage(atk: number, eDef: number) {
   const cs = eDef / atk;
-  console.log(atk)
-  console.log(eDef)
   let innerVal = 0;
   if (cs > 1) {
     console.log(cs > 1)
@@ -103,14 +101,14 @@ function App() {
   const [atkNew, setWAtkN] = useState(36)
   const [eName, setEName] = useState('debug')
   const [strDmg, setStrDmg] = useState(true)
-  const [dmgRat, setDmgRat] = useState(damageRat(atkNew, atkOrig, eName, strDmg))
+  const dmgRat = damageRat(atkNew, atkOrig, eName, strDmg)
 
   return (
     <>
     <div className='row'>
       <h1>Etrian Odyssey V/Nexus Weapon Damage Calculator</h1>
       <div className='col-sm-2'></div>
-      <div className='col-sm-8'>
+      <div className='col-sm-4'>
         <ul>
           <li>Original ATK Value: <input type="text" value={atkOrig} onChange={(val) => setWAtkO(Number(val.target.value))}/></li>
           <li>New ATK Value: <input type="text" value={atkNew} onChange={(val) => setWAtkN(Number(val.target.value))}/></li>
@@ -122,13 +120,15 @@ function App() {
             <input type="checkbox" className="btn-check" checked={!strDmg} id="btncheck3" onChange={() => setStrDmg(false)} />
             <label className="btn btn-outline-primary" for="btncheck3">Int-based</label>
           </div>
-
+        </ul>
+      </div>
+      <div className='col-sm-4'>
+        <ul>
           <li>Enemy ID: {eName}</li>
           <li>Enemy {strDmg ? "DEF" : "MDF"}: {getEDef(eName, strDmg)}</li>
         </ul>
-        <button onClick={() => setDmgRat(damageRat(atkNew, atkOrig, eName, strDmg))}>
-          Calculate!
-        </button>
+      </div>
+      <div className='row'>
         <h4>New weapon does {dmgRat}x damage</h4>
       </div>
     </div>
