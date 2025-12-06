@@ -16,10 +16,10 @@ function damage(atk: number, eDef: number) {
   }
   let finalVal = 0.717 * innerVal * atk * 3 - eDef/5
   if (finalVal < 0) finalVal = 0;
-  console.log("Player ATK", atk)
-  console.log("CS", cs)
-  console.log("Stat Value", innerVal)
-  console.log("Final Value", finalVal)
+  // console.log("Player ATK", atk)
+  // console.log("CS", cs)
+  // console.log("Stat Value", innerVal)
+  // console.log("Final Value", finalVal)
   return finalVal
 }
 
