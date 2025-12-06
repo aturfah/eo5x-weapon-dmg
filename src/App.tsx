@@ -235,15 +235,17 @@ function App() {
             </select>
           </li>
           <li><b>Enemy {strDmg ? "VIT" : "WIS"}</b>: {getEDef(eName, strDmg, nexus)}</li>
+          <p><b>Note:</b> Enemy weaknesses are ignored in damage calculations, this is just based on Enemy VIT/WIS values.</p>
         </ul>
       </div>
       <div className='row'>
         <h4>
           {isNaN(dmgRat.rat) || !isFinite(dmgRat.rat) ? "One of these results in 0 damage so..." : "New weapon does ~" + dmgRat.rat + "x damage"}
           <br/>
-          <sub>New Basic Attack Damage: {Math.round(dmgRat.dmgN * 0.98)}-{Math.round(dmgRat.dmgN * 1.02+4)}</sub> <br/>
-          <sub>Old Basic Attack Damage: {Math.round(dmgRat.dmgO * 0.98)}-{Math.round(dmgRat.dmgO * 1.02+4)}</sub>
+          <sub>New Damage: {Math.round(dmgRat.dmgN * 0.98)}-{Math.round(dmgRat.dmgN * 1.02+4)}</sub> <br/>
+          <sub>Old Damage: {Math.round(dmgRat.dmgO * 0.98)}-{Math.round(dmgRat.dmgO * 1.02+4)}</sub>
         </h4>
+        <p><b>Note:</b> Damage dealt assumes 100% skill modifier, no weaknesses, no buffs (effectively a basic attack).</p>
       </div>
     </div>
     </>
