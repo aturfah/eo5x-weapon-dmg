@@ -5,17 +5,13 @@ import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [wAtkOrig, setWAtk1] = useState(10)
+  const [wAtkNew, setWAtk2] = useState(16)
+  const [eDef, setEDef] = useState(1)
+  const [pSTR, setPSTR] = useState(1)
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
       <h1>Vite + React</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
