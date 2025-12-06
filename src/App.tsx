@@ -122,10 +122,10 @@ function App() {
       <div className='col-sm-2'></div>
       <div className='col-sm-4'>
         <ul>
-          <li>Original ATK Value: <input type="text" value={atkOrig} size={4} onChange={(val) => setWAtkO(Number(val.target.value))}/></li>
-          <li>New ATK Value: <input type="text" value={atkNew} size={4} onChange={(val) => setWAtkN(Number(val.target.value))}/></li>
-          <li>Damage Type: {strDmg ? "STR-based" : "INT-based"}</li>
-          <div className="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+          <li><b>Original ATK Value</b>: <input type="text" value={atkOrig} size={4} onChange={(val) => setWAtkO(Number(val.target.value))}/></li>
+          <li><b>New ATK Value</b>: <input type="text" value={atkNew} size={4} onChange={(val) => setWAtkN(Number(val.target.value))}/></li>
+          <li><b>Damage Type</b>: {strDmg ? "STR-based" : "INT-based"}</li>
+          <div className="btn-group" role="group" aria-label="Basic checkbox toggle button group"> &nbsp;<br/>
             <input type="checkbox" className="btn-check" checked={strDmg} id="btncheck1" onChange={() => setStrDmg(true)} />
             <label className="btn btn-outline-primary" htmlFor="btncheck1">STR-based</label>
 
@@ -136,7 +136,7 @@ function App() {
       </div>
       <div className='col-sm-4'>
         <ul>
-          <li>Enemy ID:&nbsp;
+          <li><b>Enemy ID</b>:&nbsp;
             <select name="pets" value={eName} onChange={(val) => setEName(val.target.value)} id="pet-select">
               <option value="debug">Rabid Koala</option>
               <option value="blossombeast">Blossombeast</option>
@@ -171,7 +171,7 @@ function App() {
               <option value="jormungandr_full">Jormungandr (Postgame)</option>
             </select>
           </li>
-          <li>Enemy {strDmg ? "DEF" : "MDF"}: {getEDef(eName, strDmg)}</li>
+          <li><b>Enemy {strDmg ? "DEF" : "MDEF"}</b>: {getEDef(eName, strDmg)}</li>
         </ul>
       </div>
       <div className='row'>

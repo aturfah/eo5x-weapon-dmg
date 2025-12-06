@@ -57,3 +57,7 @@ button:focus-visible {
 div.headerRow {
   padding-bottom: 10px;
 }
+
+ul {
+  list-style-type: none;
+}
